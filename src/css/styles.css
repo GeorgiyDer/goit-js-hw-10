@@ -19,3 +19,17 @@ body {
   margin-bottom: 16px;
 }
 
+img {
+  margin-right: 10px;
+  
+}
+.name {
+  font-size: 30px;
+}
+.flex {
+  display: flex;
+  align-items: center;
+}
+li {
+  margin-bottom: 10px;
+}

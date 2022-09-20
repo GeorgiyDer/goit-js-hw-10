@@ -1,8 +1,8 @@
 import './css/styles.css';
 import debounce from 'lodash.debounce'
-
 import Notiflix from 'notiflix';
-// import fetchCountries from "../src/fetchCountries.js"
+// import { fetchCountries } from '../src/fetchCountries';
+
 const DEBOUNCE_DELAY = 300;
 
 const inputEl = document.querySelector('#search-box')
@@ -31,10 +31,12 @@ function fetchCountries(name) {
             return
             }
             if (country.length > 1) {
-                makeList(country)
+                const ListMarkupToRender = makeList(country)
+                makeRenderLi(ListMarkupToRender)
                 
             } else { 
-                makeDiv(country)
+                const divMarkupToRender = makeDiv(country)
+                makeRenderDiv(divMarkupToRender)
                 
             }
             
@@ -44,30 +46,39 @@ function fetchCountries(name) {
     })
     }
     
-} 
+}   
+
 
 function makeList(country) { 
+    const markupList = []
     for (let i = 0; i < country.length; i++) {
-        const markupLi = `<li><img src="${country[i].flags.svg}" width="20" height="20" >${country[i].name.official}</li>`
-        console.log(markupLi);
-        ulEl.insertAdjacentHTML("afterbegin", markupLi);
-        ulEl.style.listStyle = "none"
+        const markupLi = `<li class="flex"><img src="${country[i].flags.svg}" alt="national flag of ${country[0].name.official} width="30" height="30" >${country[i].name.official}</li>`
+        markupList.push(markupLi)
     }
+    return markupList.join('')
 }
+function makeRenderLi(ListMarkupToRender) {
+    ulEl.insertAdjacentHTML("afterbegin", ListMarkupToRender);
+    ulEl.style.listStyle = "none"
+}
+
 
 function makeDiv(country) { 
     const markupDiv =
         `<ul style="list-style: none">
-            <li><img class = "img" src="${country[0].flags.svg}" width="20" height="20">${country[0].name.official}</li>
+            <li class = "flex, name"><img src="${country[0].flags.svg}" alt="national flag of ${country[0].name.official} width="30" height="30">${country[0].name.official}</li>
             <li>Capital: ${country[0].capital}</li>
             <li>population: ${country[0].population}</li>
             <li>languages: ${Object.values(country[0].languages)}</li>
         </ul>
         `
-    divEl.insertAdjacentHTML("afterbegin", markupDiv);
+    return markupDiv
     
 }   
 
+function makeRenderDiv(divMarkupToRender) { 
+    divEl.insertAdjacentHTML("afterbegin", divMarkupToRender);
+}
 
 
 function deleteInfo() {

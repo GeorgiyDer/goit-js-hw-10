@@ -1,4 +1,4 @@
-export default function fetchCountries(name) { 
+export function fetchCountries(name) { 
     if (name !== "") { 
         fetch(`https://restcountries.com/v3.1/name/${name}?fields=name,capital,population,flags,languages`)
     
@@ -12,10 +12,12 @@ export default function fetchCountries(name) {
             return
             }
             if (country.length > 1) {
-                makeList(country)
+                const ListMarkupToRender = makeList(country)
+                makeMarkupUl(ListMarkupToRender)
                 
             } else { 
-                makeDiv(country)
+                const divMarkupToRender = makeDiv(country)
+                makeMarkupDiv(divMarkupToRender)
                 
             }
             
@@ -25,4 +27,4 @@ export default function fetchCountries(name) {
     })
     }
     
-} 
+}   
